@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap'
+import ClothDetail from './clothDetailsComponent';
 
 class Menu extends Component{
     constructor(props){
@@ -12,29 +13,7 @@ class Menu extends Component{
         this.setState({
             selectedCloth:cloth
         });
-    }
-    renderCloth(cloth){
-        if(cloth!=null)
-            return(
-                <Card>
-                    <CardImg src={cloth.image} alt={cloth.name}/>
-                    <CardBody>
-                        <CardTitle>
-                            {cloth.name}
-                        </CardTitle>
-                        <CardText>
-                            {cloth.description}
-                        </CardText>
-                    </CardBody>
-                </Card>
-            );
-        else
-            return(
-            <div>
-
-            </div>
-            );
-    }
+    };
     render(){
         const menu=this.props.cloths.map((cloth)=>{
             return (
@@ -55,12 +34,8 @@ class Menu extends Component{
             <div className="container">
                 <div className="row">                    
                         {menu}                    
-                </div>
-                <div className="row">  
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderCloth(this.state.selectedCloth)}
-                </div>
-                </div>
+                </div> 
+                <ClothDetail cloth={this.state.selectedCloth}/>               
             </div>
         );
     }
