@@ -1,33 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap';
 
 
-class ClothDetail extends Component{
-    renderCloth(cloth){
+
+function RenderCloth({cloth}){
         return(
         <div className="col-12 col-md-5 m-1">
             <Card>
-                <CardImg src={this.props.cloth.image} alt={this.props.cloth.name}/>
+                <CardImg src={cloth.image} alt={cloth.name}/>
                 <CardBody>
                     <CardTitle>
-                        {this.props.cloth.name}
+                        {cloth.name}
                     </CardTitle>
                     <CardText>
-                        {this.props.cloth.description}
+                        {cloth.description}
                     </CardText>
                 </CardBody>                
             </Card>
         </div>
         );
     }
-    renderComments(comments){
+    function RenderComments({comments}){
         if (comments != null)
         {
             const commentListItems = comments.map((comment)=>{
                 return(
                     <li key={comment.id}>
                         <p>{comment.comment}</p>
-                        <p>-- {comment.author}, {comment.date}</p>
+                        <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                     </li>
                 );
             });
@@ -44,19 +44,20 @@ class ClothDetail extends Component{
             return (<div></div>);
         }
     };
-    render(){
-        if(this.props.cloth != null){
+    const ClothDetail = (props)=>{
+        if(props.cloth != null){
             return(
-                <div className="row">
-                    {this.renderCloth(this.props.cloth)}
-                    {this.renderComments(this.props.cloth.comments)}
+                <div className="container">
+                    <div className="row">
+                        <RenderCloth cloth={props.cloth}/>
+                        <RenderComments comments={props.cloth.comments}/>
+                    </div>
                 </div>
             );
         }
         else{
             return (<div></div>);
         }
-        
     }
-}
+    
 export default ClothDetail;
