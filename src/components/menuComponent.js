@@ -1,17 +1,18 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap'
+import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap'
 import ClothDetail from './clothDetailsComponent';
-
+import {Link} from 'react-router-dom';
 function RenderMenuItem({cloth}){
     return(
-        <Card 
-           >
+        <Card>
+            <Link to={`/menu/${cloth.id}`}>
             <CardImg width="100%" height="500" src={cloth.image} alt ={cloth.name}/>
             <CardImgOverlay>
                 <CardTitle>
                     {cloth.name}
                 </CardTitle>
             </CardImgOverlay>
+            </Link>
         </Card>
     );
 }
@@ -25,6 +26,14 @@ function RenderMenuItem({cloth}){
         });
         return(
             <div className="container">
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <Link to ="/home">Home</Link>                                
+                    </BreadcrumbItem>
+                    <BreadcrumbItem active>
+                        Menu
+                    </BreadcrumbItem>
+                </Breadcrumb>
                 <div className="row">                    
                         {menu}                    
                 </div> 

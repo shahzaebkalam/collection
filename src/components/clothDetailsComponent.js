@@ -1,23 +1,20 @@
 import React from 'react';
-import {Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap';
+import {Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb , BreadcrumbItem} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 
 
 function RenderCloth({cloth}){
         return(
-        <div className="col-12 col-md-5 m-1">
+            <div className="col-12 col-md-5 m-1">
             <Card>
-                <CardImg src={cloth.image} alt={cloth.name}/>
+                <CardImg width="100%" src={cloth.image} alt={cloth.name} />                    
                 <CardBody>
-                    <CardTitle>
-                        {cloth.name}
-                    </CardTitle>
-                    <CardText>
-                        {cloth.description}
-                    </CardText>
-                </CardBody>                
+                    <CardTitle>{cloth.name}</CardTitle>    
+                    <CardText>{cloth.description}</CardText>
+                </CardBody>
             </Card>
-        </div>
+            </div>
         );
     }
     function RenderComments({comments}){
@@ -49,8 +46,18 @@ function RenderCloth({cloth}){
             return(
                 <div className="container">
                     <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem>
+                                <Link to ="/menu">Menu</Link>                                
+                            </BreadcrumbItem>
+                            <BreadcrumbItem active>
+                                {props.cloth.name}
+                            </BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                    <div className="row">
                         <RenderCloth cloth={props.cloth}/>
-                        <RenderComments comments={props.cloth.comments}/>
+                        <RenderComments comments={props.comments}/>
                     </div>
                 </div>
             );

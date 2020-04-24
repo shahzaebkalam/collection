@@ -9,6 +9,7 @@ import {LEADERS} from '../shared/leaders';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
+import Contact from './ContactComponent';
 
 import {Switch, Route, Redirect} from 'react-router-dom';
 
@@ -29,6 +30,14 @@ class Main extends Component {
         })
     }
     render(){
+        const ClothWithId=({match})=>{
+            return(
+                <ClothDetail
+                cloth={this.state.cloths.filter((cloth) => cloth.id === parseInt(match.params.clothId,10))[0]} 
+                comments={this.state.comments.filter((comment) => comment.clothId === parseInt(match.params.clothId,10))}
+                />
+            );
+        }
         return(
         <div>
             <Header/>
@@ -39,6 +48,8 @@ class Main extends Component {
                     leader={this.state.leaders.filter((leader)=>leader.featured)[0]}
                 />}/>
                 <Route exact path='/menu' component={()=><Menu cloths={this.state.cloths}/>}/>
+                <Route path='/menu/:clothId' component={ClothWithId}/>
+                <Route exact path="/contactus" component={Contact}/>
                 <Redirect to='/home'/>
             </Switch>
             
